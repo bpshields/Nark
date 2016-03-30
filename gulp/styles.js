@@ -1,6 +1,7 @@
 'use strict';
 
 var gulp = require('gulp');
+var sass = require('gulp-sass');
 
 var paths = gulp.paths;
 
@@ -38,11 +39,7 @@ gulp.task('styles', function () {
     .pipe(indexFilter)
     .pipe($.inject(injectFiles, injectOptions))
     .pipe(indexFilter.restore())
-    .pipe($.rubySass(sassOptions)
-      .on('error', function (err) {
-        console.error('Error!', err.message);
-      })
-    )
+    .pipe(sass().on('error', sass.logError))
 
   .pipe($.autoprefixer())
     .on('error', function handleError(err) {
