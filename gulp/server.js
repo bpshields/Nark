@@ -10,33 +10,20 @@ var browserSync = require('browser-sync');
 
 var middleware = require('./proxy');
 
-function browserSyncInit(baseDir, files, browser) {
+var nodemon = require('gulp-nodemon');
+
+function browserSyncInit(files, browser) {
   browser = browser === undefined ? 'default' : browser;
 
-  var routes = null;
-  if(baseDir === paths.src || (util.isArray(baseDir) && baseDir.indexOf(paths.src) !== -1)) {
-    routes = {
-      '/bower_components': 'bower_components'
-    };
-  }
-
-  browserSync.instance = browserSync.init(files, {
-    startPath: '/',
-    server: {
-      baseDir: baseDir,
-      middleware: middleware,
-      routes: routes
-    },
+  browserSync.init(files, {
+    proxy: "localhost:3000",
     browser: browser
   });
 }
 
-gulp.task('serve', ['watch'], function () {
+gulp.task('serve', ['set-dev', 'nodemon', 'watch'], function () {
   browserSyncInit([
-    paths.tmp + '/serve',
-    paths.src
-  ], [
-    paths.tmp + '/serve/{app,components}/**/*.css',
+    paths.tmp + '/serve/{css,components}/**/*.css',
     paths.src + '/{app,components}/**/*.js',
     paths.src + 'src/assets/images/**/*',
     paths.tmp + '/serve/*.html',
@@ -55,4 +42,19 @@ gulp.task('serve:e2e', ['inject'], function () {
 
 gulp.task('serve:e2e-dist', ['build'], function () {
   browserSyncInit(paths.dist, null, []);
+});
+
+gulp.task('nodemon', function (cb) {
+  var started = false;
+
+  return nodemon({
+    script: paths.src + '/app.js'
+  }).on('start', function () {
+    // to avoid nodemon being started multiple times
+    // thanks @matthisk
+    if (!started) {
+      cb();
+      started = true;
+    }
+  });
 });
