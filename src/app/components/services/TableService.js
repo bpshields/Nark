@@ -8,6 +8,7 @@
   ]);
 
   function tableService($q){
+
     var tableData = [
       {
         issue: 'Nested views',

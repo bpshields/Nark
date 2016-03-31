@@ -8,7 +8,7 @@
 
   function ProfileController() {
     var vm = this;
-
+    vm.types = ['GET','POST','PUT','DELETE'];
     vm.user = {
       title: 'Admin',
       email: 'contact@flatlogic.com',
