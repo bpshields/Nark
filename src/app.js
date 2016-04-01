@@ -14,7 +14,7 @@ io.on('connection', function(socket){
     socket.on('disconnect', function(){
         console.log('user disconnected');
     });
-    //setInterval(function(){io.emit('chat message', { for: 'everyone' });},1000);
+    setInterval(function(){io.emit('init', { for: 'everyone' });},1000);
 });
 
 var environment = process.env.NODE_ENV;

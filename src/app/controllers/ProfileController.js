@@ -3,10 +3,15 @@
   angular
     .module('app')
     .controller('ProfileController', [
-      ProfileController
+      '$scope', 'socket', ProfileController
     ]);
 
-  function ProfileController() {
+  function ProfileController($scope, socket) {
+
+    socket.on('init', function (data) {
+      console.log('init hit!');
+    });
+
     var vm = this;
     vm.types = ['GET','POST','PUT','DELETE'];
     vm.user = {
