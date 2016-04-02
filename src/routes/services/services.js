@@ -11,15 +11,39 @@ router.use(function timeLog(req, res, next) {
 
 // define the home page route
 router.get('/services', function(req, res) {
-    var conn = req.app.locals.db_connection;
-
-    r.db('nark').table('services').run(conn, function(err, cursor) {
+    r.db('nark').table('services').run(req.app.locals.db_connection, function(err, cursor) {
         if (err) throw err;
         cursor.toArray(function(err, result) {
             if (err) throw err;
-            res.send(JSON.stringify(result, null, 2));
+            res.json(result);
         });
     });
 });
+
+
+//Required Properties: Host,Path,Type,PrefResponseTime,PrefStatusCode,PrefResponseData
+//TODO: Refactor this in the morning and actually put more thought into validation
+router.post('/services/create', function(req, res) {
+    var service = req.body;
+    var response = null;
+    if ( validateBody(service) ) {
+        r.db('nark').table('services').insert(service).run(req.app.locals.db_connection, function(err, result) {
+            if (err) {
+                res.status(500);
+                response = err;
+            }
+            response = result;
+        })
+        res.status(200);
+    }
+    res.json(response);
+});
+
+function validateBody(body) {
+    var valid = true;
+    console.log(body);
+    return valid;
+}
+
 
 module.exports = router;

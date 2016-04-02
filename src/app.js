@@ -8,6 +8,8 @@ var server = require('http').createServer(app);
 var io = require('socket.io')(server);
 var environment = process.env.NODE_ENV;
 var config = require('./config/config.js');
+var bodyParser = require('body-parser')
+app.use( bodyParser.json() );
 
 
 if (environment === 'prod') {

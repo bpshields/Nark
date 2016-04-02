@@ -2,6 +2,7 @@
   "name": "nark",
   "version": "0.0.1",
   "dependencies": {
+    "body-parser": "^1.15.0",
     "express": "^4.13.4",
     "rethinkdb": "^2.2.3",
     "socket.io": "^1.4.5"
