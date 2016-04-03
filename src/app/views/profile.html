@@ -3,20 +3,32 @@
         <div layout-gt-xs="row">
             <div layout="column" flex="30">
                 <md-input-container>
-                    <label>Service Name</label>
-                    <input ng-model="vm.user.name">
+                    <label>Name</label>
+                    <input ng-model="vm.service.alias">
+                </md-input-container>
+                <md-input-container>
+                    <label>Host</label>
+                    <input ng-model="vm.service.hostname">
+                </md-input-container>
+                <md-input-container>
+                    <label>Port</label>
+                    <input ng-model="vm.service.port">
                 </md-input-container>
                 <md-input-container>
                     <label>Request Type</label>
-                    <md-select ng-model="vm.selectedType">
-                        <md-option ng-repeat="state in vm.types" value="{{state}}">
-                            {{state}}
+                    <md-select ng-model="vm.service.method">
+                        <md-option ng-repeat="item in vm.types" value="{{item}}">
+                            {{item}}
                         </md-option>
                     </md-select>
                 </md-input-container>
                 <md-input-container>
                     <label>Content Type</label>
-                    <input ng-model="vm.contentType">
+                    <md-select ng-model="vm.service.contentType">
+                        <md-option ng-repeat="item in vm.contentTypes" value="{{item}}">
+                            {{item}}
+                        </md-option>
+                    </md-select>
                 </md-input-container>
             </div>
             <div layout="column" flex>

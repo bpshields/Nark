@@ -8,12 +8,9 @@
 
   function ProfileController($scope, socket) {
 
-    socket.on('init', function (data) {
-      console.log('init hit!');
-    });
-
     var vm = this;
     vm.types = ['GET','POST','PUT','DELETE'];
+    vm.contentTypes = ['application/json','text/plain','appliaction/javascript','application/xml','text/xml','text/html'];
     vm.user = {
       title: 'Admin',
       email: 'contact@flatlogic.com',

@@ -70,9 +70,7 @@ server.listen(3000);
             cursor.each(function(err, row) {
                 if (err) throw err;
                 if (row && row.new_val) {
-                    io.sockets.emit("people", row.new_val);
-                    console.log(JSON.stringify(row, null, 2));
-                    io.emit('chat message', JSON.stringify(row, null, 2));
+                    io.sockets.emit("Services:Update", row);
                 }
             });
         });
