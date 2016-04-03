@@ -1,6 +1,6 @@
 'use strict';
 
-let db = {
+var db = {
     host: 'localhost',
     port: 28015
 };
